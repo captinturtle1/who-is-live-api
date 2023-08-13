@@ -1,5 +1,6 @@
 import pretty from 'pretty';
 
+// takes a string of numbers with commas, and returns only a number
 function parseViewers(viewerString) {
     let numArray = Array.from(viewerString);
     let followerNumArray = [];
@@ -18,34 +19,49 @@ function parseViewers(viewerString) {
 export function youtubeChannelInfo(channels) {
     return new Promise(async (resolve, reject) => {
         try {
+
             // Fetch data from the URL
             async function getInfo(channelName) {
+
+                // getting the "html" to parse thru and formatting it a bit
                 let response = await fetch(`https://youtube.com/@${channelName}`);
                 let html = await response.text();
                 let prettied = pretty(html); 
 
+                // defining the channel info object
                 let infoObject = {
                     displayName: '',
                     profileImageURL: '',
                     verified: false,
                     live: false,
                     viewers: 0,
+                    streamTitle: ''
                 }
 
+                // setting if the channel is verified
                 if (prettied.match(/"style": "BADGE_STYLE_TYPE_VERIFIED"/)) infoObject.verified = true;
 
-                if (prettied.match(/"text": "LIVE"/)) {
-                    infoObject.live = true
-                    let matchedViewers = prettied.match(/"viewCountText"\s*:\s*{\s*"runs"\s*:\s*\[\s*{\s*"text"\s*:\s*"([^"]+)"/);
-                    infoObject.viewers = parseViewers(matchedViewers[1]);
-                };
-
+                // getting and setting the profile image url
                 if (prettied.match(/<link rel="image_src" href="([^"]*)"[^>]*>/)) {
                     infoObject.profileImageURL = prettied.match(/<link rel="image_src" href="([^"]*)"[^>]*>/)[1];
                 };
 
+                // getting and setting the display name
                 if (prettied.match(/<meta property="og:title" content="([^"]*)"[^>]*>/)) {
                     infoObject.displayName = prettied.match(/<meta property="og:title" content="([^"]*)"[^>]*>/)[1];
+                };
+
+                // stuff to do if the channel is live
+                if (prettied.match(/"text": "LIVE"/)) {
+                    // setting live to true
+                    infoObject.live = true
+
+                    // getting and setting viewers
+                    let matchedViewers = prettied.match(/"viewCountText"\s*:\s*{\s*"runs"\s*:\s*\[\s*{\s*"text"\s*:\s*"([^"]+)"/);
+                    infoObject.viewers = parseViewers(matchedViewers[1]);
+
+                    let matchedTitle = prettied.match(/"title"\s*:\s*{\s*"runs"\s*:\s*\[\s*{\s*"text"\s*:\s*"([^"]+)"/);
+                    infoObject.streamTitle = matchedTitle[1];
                 };
 
                 return infoObject;
