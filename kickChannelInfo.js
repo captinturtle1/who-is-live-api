@@ -72,7 +72,8 @@ export function kickChannelInfo(channels) {
 
                         // getting viewers
                         let viewerArray = Array.from(document.querySelectorAll('.odometer-digit-inner')).map(x => x.textContent);
-                        let viewers = viewerArray.join('');
+                        let viewers = parseInt(viewerArray.join(''));
+                        infoObject.viewers = viewers;
                     }
 
                     return infoObject;
