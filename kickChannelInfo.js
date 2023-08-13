@@ -30,16 +30,7 @@ export function kickChannelInfo(channels) {
                         title: '',
                         catagory: '',
                         tags: [],
-                    }
-
-                    // getting viewers
-                    let viewerArray = Array.from(document.querySelectorAll('.odometer-digit-inner')).map(x => x.textContent);
-                    let viewers = viewerArray.join('');
-                    if (viewers != '') infoObject.viewers = parseInt(viewers);
-
-                    // getting live
-                    let isCurrentlyLive = document.querySelector('.mt-0') != undefined;
-                    infoObject.live = isCurrentlyLive;
+                    }                    
 
                     // getting followers
                     let followerCount = Array.from(document.querySelector('.shadow > div:nth-child(1) > div:nth-child(1) > div:nth-child(2)').textContent);
@@ -59,8 +50,14 @@ export function kickChannelInfo(channels) {
                     let isVerified = document.querySelector('div.w-4:nth-child(2) > div:nth-child(1) > svg:nth-child(1) > path:nth-child(1)') != undefined;
                     infoObject.verified = isVerified;
 
-                    // getting catagory
+                    let imageUrl = document.querySelector('.owner-avatar > div:nth-child(1) > img:nth-child(2)').getAttribute("src");
+                    infoObject.imageURL = imageUrl;
+
+                    // if live
                     if (document.querySelector('.mt-0') != undefined) {
+                        infoObject.live = true;
+
+                        // getting catagory
                         let channelCatagories = document.querySelector('div.category-tags-holder:nth-child(3) > div:nth-child(1) > a:nth-child(1)').textContent;
                         infoObject.catagory = channelCatagories;
 
@@ -72,6 +69,10 @@ export function kickChannelInfo(channels) {
                         // getting title
                         let streamTitle = document.querySelector('.stream-title').textContent;
                         infoObject.title = streamTitle;
+
+                        // getting viewers
+                        let viewerArray = Array.from(document.querySelectorAll('.odometer-digit-inner')).map(x => x.textContent);
+                        let viewers = viewerArray.join('');
                     }
 
                     return infoObject;
