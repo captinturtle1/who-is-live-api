@@ -38,7 +38,6 @@ app.post('/youtube', (req, res) => {
         res.status(200).json({ info });
     }).catch((err) => {
         console.log('request failed');
-        console.log(err);
         res.status(500).json({error: "Internal Server Error"})
     });
 });

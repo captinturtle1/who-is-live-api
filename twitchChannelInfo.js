@@ -38,7 +38,6 @@ export function twitchChannelInfo(channels) {
                 })
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data);
                     if (data.error) {
                         console.log('had error, getting new token')
                         // if token is invalid, get a new token
@@ -67,7 +66,6 @@ export function twitchChannelInfo(channels) {
                             })
                             .then((response) => response.json())
                             .then((data) => {
-                                console.log(data);
                                 if (data.error) {
                                     reject();
                                 } else {
