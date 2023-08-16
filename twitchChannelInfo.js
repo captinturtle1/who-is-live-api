@@ -121,6 +121,7 @@ export function twitchChannelInfo(channels) {
                 let newDataArray = [];
                 for (let i = 0; i < usersResponse.length; i++) {
                     let infoObject = {
+                        name: usersResponse[i].login,
                         displayName: usersResponse[i].display_name,
                         profileImageURL: usersResponse[i].profile_image_url,
                         verified: usersResponse[i].broadcaster_type == 'partner',

@@ -30,6 +30,7 @@ export function youtubeChannelInfo(channels) {
 
                 // defining the channel info object
                 let infoObject = {
+                    name: channelName,
                     displayName: '',
                     profileImageURL: '',
                     verified: false,
