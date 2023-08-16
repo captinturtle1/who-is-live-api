@@ -21,7 +21,7 @@ export function kickChannelInfo(channels) {
 
                 const channelStats = await page.evaluate(() => {
                     let infoObject = {
-                        name: channelName,
+                        name: '',
                         displayName: '',
                         profileImageURL: '',
                         verified: false,
@@ -86,6 +86,7 @@ export function kickChannelInfo(channels) {
             let newInfoArray = [];
             for (let i = 0; i < channels.length; i++) {
                 let newInfoObject = await getStats(channels[i], i)
+                newInfoObject.name = channels[i];
                 newInfoArray.push(newInfoObject);
             }
             
