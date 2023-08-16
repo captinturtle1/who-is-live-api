@@ -22,15 +22,15 @@ export function kickChannelInfo(channels) {
                 const channelStats = await page.evaluate(() => {
                     let infoObject = {
                         displayName: '',
-                        imageURL: '',
+                        profileImageURL: '',
                         verified: false,
                         followers: 0,
                         live: false,
                         viewers: 0,
-                        title: '',
+                        streamTitle: '',
                         catagory: '',
                         tags: [],
-                    }                    
+                    }
 
                     // getting followers
                     let followerCount = Array.from(document.querySelector('.shadow > div:nth-child(1) > div:nth-child(1) > div:nth-child(2)').textContent);
