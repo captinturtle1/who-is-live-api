@@ -20,8 +20,8 @@ function getAccessToken() {
             
             let response = await fetch('https://id.twitch.tv/oauth2/token', options);
             response = await response.json();
-            console.log('token set', response);
             accessToken = response.access_token;
+            console.log('twitch token set');
             resolve();
         } catch(err) {
             reject(err);
@@ -51,16 +51,46 @@ function fetchTwitch(urlParems) {
     });
 }
 
+function getTwitchUser(loginUrlParams) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let options = {
+                method: "GET",
+                headers: {
+                    'Authorization': 'Bearer ' + accessToken,
+                    'Client-Id': process.env.TWITCH_CLIENT_ID
+                }
+            };
+            
+            let response = await fetch(`https://api.twitch.tv/helix/users?${loginUrlParams}`, options);
+            response = await response.json();
+            resolve (response)
+        } catch(err) {
+            reject(err);
+        }
+    })
+}
+
 export function twitchChannelInfo(channels) {
     return new Promise(async (resolve, reject) => {
             try {
-                // constructing twitch api url
+                // constructing api url for streams endpoint
                 let urlParems = '';
                 for (let i = 0; i < channels.length; i++) {
                     if (i == 0) {
                         urlParems = urlParems.concat('user_login=', channels[i]);
                     } else {
                         urlParems = urlParems.concat('&user_login=', channels[i]);
+                    }
+                }
+
+                // constructing api url for users endpoint
+                let loginUrlParems = '';
+                for (let i = 0; i < channels.length; i++) {
+                    if (i == 0) {
+                        loginUrlParems = loginUrlParems.concat('login=', channels[i]);
+                    } else {
+                        loginUrlParems = loginUrlParems.concat('&login=', channels[i]);
                     }
                 }
 
@@ -77,14 +107,42 @@ export function twitchChannelInfo(channels) {
                     // check if api gave an error, and reject if so
                     if (response.error) {
                         reject(response);
-                    } else {
-                        resolve(response);
                     }
-                } else {
-                    // if token is already good
-                    resolve(response);
                 }
+
+                let usersResponse = await getTwitchUser(loginUrlParems);
+                if (usersResponse.error) {
+                    reject(response);
+                }
+                
+                response = response.data;
+                usersResponse = usersResponse.data;
+                
+                let newDataArray = [];
+                for (let i = 0; i < usersResponse.length; i++) {
+                    let infoObject = {
+                        displayName: usersResponse[i].display_name,
+                        profileImageURL: usersResponse[i].profile_image_url,
+                        verified: usersResponse[i].broadcaster_type == 'partner',
+                        live: false,
+                        viewers: 0,
+                        streamTitle: ''
+                    }
+
+                    // loop thru stream endpoint responses to find matching name for current users endpoint
+                    for (let j = 0; j < response.length; j++) {
+                        if (response[j].user_login == usersResponse[i].login) {
+                            infoObject.live = true;
+                            infoObject.viewers = response[j].viewer_count;
+                            infoObject.streamTitle = response[j].title;
+                        }
+                    }
+                    newDataArray.push(infoObject);
+                }
+
+                resolve(newDataArray)
             } catch(err) {
+                console.log(err);
                 reject(err);
             }
     });
