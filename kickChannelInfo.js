@@ -17,7 +17,6 @@ export function kickChannelInfo(channels) {
             async function getStats(channelName, index) {
                 await page.goto(`https://kick.com/${channelName}`);
                 await page.waitForSelector('.owner-avatar > div:nth-child(1) > img:nth-child(2)');
-                await page.screenshot({path: `${index}.png`, fullPage: true});
 
                 const channelStats = await page.evaluate(() => {
                     let infoObject = {

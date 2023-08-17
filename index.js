@@ -7,7 +7,11 @@ import { youtubeChannelInfo } from './youtubeChannelInfo.js';
 const app = express();
 app.use(express.json());
 
-const port = 1337
+const port = 8080;
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
 
 app.post('/kick', (req, res) => {
     console.log('Kick API', req.body)
