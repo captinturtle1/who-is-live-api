@@ -1,4 +1,5 @@
 import pretty from 'pretty';
+import fetch from 'node-fetch';
 
 // takes a string of numbers with commas, and returns only a number
 function parseViewers(viewerString) {

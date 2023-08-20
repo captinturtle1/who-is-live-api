@@ -1,6 +1,7 @@
 // puppeteer-extra is a drop-in replacement for puppeteer, 
 // it augments the installed puppeteer with plugin functionality 
 import puppeteer from 'puppeteer-extra';
+import fetch from 'node-fetch';
  
 // add stealth plugin and use defaults (all evasion techniques) 
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';

@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 
 import { kickChannelInfo } from './kickChannelInfo.js';
 import { twitchChannelInfo } from './twitchChannelInfo.js';
@@ -6,6 +7,7 @@ import { youtubeChannelInfo } from './youtubeChannelInfo.js';
 
 const app = express();
 app.use(express.json());
+app.use(cors())
 
 const port = 8080;
 
