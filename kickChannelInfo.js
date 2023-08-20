@@ -51,8 +51,8 @@ export function kickChannelInfo(channels) {
                     let isVerified = document.querySelector('div.w-4:nth-child(2) > div:nth-child(1) > svg:nth-child(1) > path:nth-child(1)') != undefined;
                     infoObject.verified = isVerified;
 
-                    let imageUrl = document.querySelector('.owner-avatar > div:nth-child(1) > img:nth-child(2)').getAttribute("src");
-                    infoObject.imageURL = imageUrl;
+                    let profileImageURL = document.querySelector('.owner-avatar > div:nth-child(1) > img:nth-child(2)').getAttribute("src");
+                    infoObject.profileImageURL = profileImageURL;
 
                     // if live
                     if (document.querySelector('.mt-0') != undefined) {
