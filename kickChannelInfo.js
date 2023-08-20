@@ -69,7 +69,7 @@ export function kickChannelInfo(channels) {
 
                         // getting title
                         let streamTitle = document.querySelector('.stream-title').textContent;
-                        infoObject.title = streamTitle;
+                        infoObject.streamTitle = streamTitle;
 
                         // getting viewers
                         let viewerArray = Array.from(document.querySelectorAll('.odometer-digit-inner')).map(x => x.textContent);
