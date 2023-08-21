@@ -52,7 +52,7 @@ export function youtubeChannelInfo(channels) {
                 if (prettied.match(/<meta property="og:title" content="([^"]*)"[^>]*>/)) {
                     infoObject.displayName = prettied.match(/<meta property="og:title" content="([^"]*)"[^>]*>/)[1];
                 };
-
+                
                 // stuff to do if the channel is live
                 if (prettied.match(/"text": "LIVE"/)) {
                     // setting live to true
