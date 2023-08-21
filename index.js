@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import validator from 'validator';
 
 import { kickChannelInfo } from './kickChannelInfo.js';
 import { twitchChannelInfo } from './twitchChannelInfo.js';
@@ -27,7 +26,7 @@ app.post('/kick', (req, res) => {
     let isValid = true;
     for (let i = 0; i < req.body.length; i++) {
         if (isValid) {
-            isValid = validator.isAlphanumeric(req.body[i]);
+            isValid = (req.body[i]).match(/^[a-zA-Z0-9_]+$/i);
         }
     }
 
@@ -49,9 +48,8 @@ app.post('/twitch', (req, res) => {
 
     let isValid = true;
     for (let i = 0; i < req.body.length; i++) {
-        console.log(i, isValid)
         if (isValid) {
-            isValid = validator.isAlphanumeric(req.body[i]);
+            isValid = (req.body[i]).match(/^[a-zA-Z0-9_]+$/i);
         }
     }
 
@@ -74,7 +72,7 @@ app.post('/youtube', (req, res) => {
     let isValid = true;
     for (let i = 0; i < req.body.length; i++) {
         if (isValid) {
-            isValid = validator.isAlphanumeric(req.body[i]);
+            isValid = (req.body[i]).match(/^[a-zA-Z0-9_]+$/i);
         }
     }
 

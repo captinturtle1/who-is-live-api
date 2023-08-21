@@ -17,8 +17,7 @@
     "pretty": "^2.0.0",
     "puppeteer": "^20.9.0",
     "puppeteer-extra": "^3.3.6",
-    "puppeteer-extra-plugin-stealth": "^2.11.2",
-    "validator": "^13.11.0"
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
   },
   "type": "module"
 }
