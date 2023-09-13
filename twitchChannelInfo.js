@@ -125,10 +125,13 @@ export function twitchChannelInfo(channels) {
                         name: usersResponse[i].login,
                         displayName: usersResponse[i].display_name,
                         profileImageURL: usersResponse[i].profile_image_url,
+                        streamURL: `https://twitch.tv/${usersResponse[i].login}`,
                         verified: usersResponse[i].broadcaster_type == 'partner',
                         live: false,
                         viewers: 0,
-                        streamTitle: ''
+                        streamTitle: '',
+                        catagory: '',
+                        tags: [],
                     }
 
                     // loop thru stream endpoint responses to find matching name for current users endpoint
@@ -137,6 +140,8 @@ export function twitchChannelInfo(channels) {
                             infoObject.live = true;
                             infoObject.viewers = response[j].viewer_count;
                             infoObject.streamTitle = response[j].title;
+                            infoObject.catagory = response[j].game_name;
+                            infoObject.tags = response[j].tags;
                         }
                     }
                     newDataArray.push(infoObject);

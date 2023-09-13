@@ -8,11 +8,7 @@ import { youtubeChannelInfo } from './youtubeChannelInfo.js';
 const app = express();
 app.use(express.json());
 
-let corsOptions = {
-    origin: 'https://isanyone.live',
-};
-
-app.use(cors(corsOptions))
+app.use(cors())
 
 const port = 8080;
 
@@ -81,7 +77,7 @@ app.post('/youtube', (req, res) => {
             console.log('request successful');
             res.status(200).json({ info });
         }).catch((err) => {
-            console.log('request failed');
+            console.log('request failed', err);
             res.status(500).json({error: "Internal Server Error"})
         });
     } else {

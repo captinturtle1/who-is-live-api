@@ -24,6 +24,7 @@ export function kickChannelInfo(channels) {
                         name: '',
                         displayName: '',
                         profileImageURL: '',
+                        streamURL: '',
                         verified: false,
                         followers: 0,
                         live: false,
@@ -87,6 +88,7 @@ export function kickChannelInfo(channels) {
             for (let i = 0; i < channels.length; i++) {
                 let newInfoObject = await getStats(channels[i], i)
                 newInfoObject.name = channels[i];
+                newInfoObject.streamURL = `https://kick.com/${channels[i]}`;
                 newInfoArray.push(newInfoObject);
             }
             

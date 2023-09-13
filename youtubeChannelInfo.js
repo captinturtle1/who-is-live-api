@@ -34,6 +34,7 @@ export function youtubeChannelInfo(channels) {
                     name: channelName,
                     displayName: '',
                     profileImageURL: '',
+                    streamURL: `https://youtube.com/@${channelName}`,
                     verified: false,
                     live: false,
                     viewers: 0,
@@ -64,6 +65,9 @@ export function youtubeChannelInfo(channels) {
 
                     let matchedTitle = prettied.match(/"title"\s*:\s*{\s*"runs"\s*:\s*\[\s*{\s*"text"\s*:\s*"([^"]+)"/);
                     infoObject.streamTitle = matchedTitle[1];
+
+                    let matchedURL = prettied.match(/"videoId"\s*:\s*"([^"]+)"/)
+                    infoObject.streamURL = `https://www.youtube.com/watch?v=${matchedURL[1]}`;
                 };
 
                 return infoObject;
