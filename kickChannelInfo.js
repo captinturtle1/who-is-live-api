@@ -11,7 +11,6 @@ export function kickChannelInfo(channels) {
 
                 // checks if channel exists
                 let extractedText = await page.$eval('*', (el) => el.innerText);
-                console.log(extractedText);
                 if (extractedText.length == 13) return false;
                 extractedText = JSON.parse(extractedText)
 
