@@ -1,5 +1,4 @@
-import fetch from 'node-fetch';
-import puppeteer from 'puppeteer-extra';
+import puppeteer from "puppeteer";
 
 export function kickChannelInfo(channels) {
     return new Promise(async (resolve, reject) => {
