@@ -5,13 +5,13 @@ export function kickChannelInfo(channels) {
         try {
             const browser = await puppeteer.launch({headless: "new"});
             const page = await browser.newPage() 
-            await page.setViewport({width: 1920, height: 919});
             
             async function getStats(channelName, index) {
                 await page.goto(`https://kick.com/api/v2/channels/${channelName}`);
 
                 // checks if channel exists
                 let extractedText = await page.$eval('*', (el) => el.innerText);
+                console.log(extractedText);
                 if (extractedText.length == 13) return false;
                 extractedText = JSON.parse(extractedText)
 
@@ -25,7 +25,7 @@ export function kickChannelInfo(channels) {
                     live: extractedText.livestream != null,
                     viewers: extractedText.livestream != null ? extractedText.livestream.view_count : 0,
                     streamTitle: extractedText.livestream != null ? extractedText.livestream.session_title : '',
-                    catagory: extractedText.livestream != null ? extractedText.livestream.catagories[0].name : '',
+                    catagory: extractedText.livestream != null ? extractedText.livestream.categories[0].name : '',
                     tags: extractedText.livestream != null ? extractedText.livestream.tags : [],
                 }
 
