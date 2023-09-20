@@ -22,7 +22,7 @@ export function kickChannelInfo(channels) {
                     verified: extractedText.verified,
                     followers: extractedText.followers_count,
                     live: extractedText.livestream != null,
-                    viewers: extractedText.livestream != null ? extractedText.livestream.view_count : 0,
+                    viewers: extractedText.livestream != null ? extractedText.livestream.viewer_count : 0,
                     streamTitle: extractedText.livestream != null ? extractedText.livestream.session_title : '',
                     catagory: extractedText.livestream != null ? extractedText.livestream.categories[0].name : '',
                     tags: extractedText.livestream != null ? extractedText.livestream.tags : [],
